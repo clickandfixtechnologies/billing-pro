@@ -2,7 +2,10 @@
 window.CF = window.CF || {};
 document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("todayDate").textContent = new Intl.DateTimeFormat("en-IN", { dateStyle:"full" }).format(new Date());
-  document.getElementById("menuButton").addEventListener("click", () => document.querySelector(".sidebar").classList.toggle("open"));
+  const sidebar=document.querySelector(".sidebar"),backdrop=document.getElementById("sidebarBackdrop"),menuButton=document.getElementById("menuButton"),setSidebarOpen=open=>{const mobile=window.matchMedia("(max-width:720px)").matches,isOpen=mobile&&open;sidebar.classList.toggle("open",isOpen);backdrop.classList.toggle("open",isOpen);backdrop.setAttribute("aria-hidden",String(!isOpen));menuButton.setAttribute("aria-expanded",String(isOpen));};
+  CF.sidebar={open:()=>setSidebarOpen(true),close:()=>setSidebarOpen(false),toggle:()=>setSidebarOpen(!sidebar.classList.contains("open"))};
+  menuButton.addEventListener("click",CF.sidebar.toggle);
+  backdrop.addEventListener("click",CF.sidebar.close);
   document.getElementById("syncButton").addEventListener("click", () => location.hash = "#settings");
   window.addEventListener("hashchange", CF.router.render);
   try { await CF.db.open(); await CF.emailTemplates.migrate(); await CF.sync.init(); await CF.db.log("Application opened", "system"); await CF.router.render(); }

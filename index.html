@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#17324d">
     <title>Click &amp; Fix Billing Pro</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/invoice.css">
     <style>html:not(.authenticated) body{visibility:hidden}</style>
@@ -34,10 +34,11 @@
         </nav>
         <div class="sidebar-footer">v1.0.0-alpha.1<br>Offline-first foundation</div>
       </aside>
+      <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
 
       <main class="main-panel">
         <header class="topbar">
-          <button id="menuButton" class="menu-button" aria-label="Open navigation">☰</button>
+          <button id="menuButton" class="menu-button" aria-label="Open navigation" aria-expanded="false">☰</button>
           <div>
             <h1 id="pageTitle">Dashboard</h1>
             <p id="todayDate" class="muted"></p>
@@ -69,8 +70,8 @@
     <script src="js/sync.js"></script>
     <script src="js/settings.js?v=5"></script>
     <script src="js/pdf.js?v=7"></script>
-    <script src="js/router.js"></script>
-    <script src="js/app.js?v=2"></script>
+    <script src="js/router.js?v=2"></script>
+    <script src="js/app.js?v=3"></script>
     <script type="module" src="js/auth.js?v=2"></script>
   </body>
 </html>
