@@ -1,7 +1,7 @@
 "use strict";
 window.CF = window.CF || {};
 CF.db = (() => {
-  const DB_NAME = "ClickFixBillingDB", VERSION = 5;
+  const DB_NAME = "ClickFixBillingDB", VERSION = 6;
   const stores = [
     ["customers", "customerId", ["name", "mobile", "email"]],
     ["products", "productId", ["name", "productCode", "category"]],
@@ -14,13 +14,13 @@ CF.db = (() => {
     ["suppliers", "supplierId", ["name", "mobile", "gstNumber"]],
     ["purchases", "purchaseId", ["purchaseNo", "supplierId", "purchaseDate", "paymentStatus"]],
     ["supplierPayments", "paymentId", ["supplierId", "purchaseId", "paymentDate"]],
-    ["emailTemplates", "templateId", ["name"]], ["reminders", "reminderId", ["customerId", "createdAt", "status"]]
+    ["emailTemplates", "templateId", ["name", "type"]], ["reminders", "reminderId", ["customerId", "createdAt", "status"]]
   ];
   let connection;
   const storeNames = () => stores.map(([name]) => name).filter(name => connection.objectStoreNames.contains(name));
   const open = () => new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, VERSION);
-    request.onupgradeneeded = event => { const db = event.target.result; stores.forEach(([name, key, indexes]) => { if (!db.objectStoreNames.contains(name)) { const store = db.createObjectStore(name, { keyPath:key }); indexes.forEach(index => store.createIndex(index, index, { unique:false })); } }); };
+    request.onupgradeneeded = event => { const db = event.target.result; stores.forEach(([name, key, indexes]) => { const store = db.objectStoreNames.contains(name) ? event.target.transaction.objectStore(name) : db.createObjectStore(name, { keyPath:key }); indexes.forEach(index => { if (!store.indexNames.contains(index)) store.createIndex(index, index, { unique:false }); }); }); };
     request.onblocked = () => reject(new Error("Close other Click & Fix tabs, then reload to update the local database."));
     request.onsuccess = event => { connection = event.target.result; resolve(connection); };
     request.onerror = () => reject(request.error);
