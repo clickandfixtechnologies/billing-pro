@@ -18,14 +18,14 @@ body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #11
 .print-invoice .metadata strong { display: block; font-size: 10px; }
 .print-invoice .delivery-box { min-height: 14mm; padding: 3px; border-top: 1px solid #777; }
 
-/* Original Structure Preserved */
+/* Items Table Layout & Gap Fix */
 .print-invoice .items { table-layout: fixed; flex-grow: 1; height: 100%; }
 .print-invoice .items th, .print-invoice .items td { border-right: 1px solid #777; border-bottom: 1px solid #777; padding: 3px 2px; vertical-align: top; }
 .print-invoice .items th:last-child, .print-invoice .items td:last-child { border-right: 0; }
 .print-invoice .items th { text-align: center; font-size: 9px; font-weight: 700; }
 
-/* No line between products, and zero gap */
-.print-invoice .items tbody tr:not(.filler) td { border-bottom: 0; }
+/* প্রডাক্টগুলোর মাঝের লাইন এবং গ্যাপ দূর করার জন্য */
+.print-invoice .items tbody tr:not(.filler) td { border-bottom: 0; height: auto; }
 
 .print-invoice .items .number, .print-invoice .items .money, .print-invoice .items .qty { text-align: right; }
 .print-invoice .items .description { font-size: 10px; }
@@ -50,6 +50,7 @@ body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #11
 .print-invoice .qr-wrap { text-align: center; padding: 2px; }
 .print-invoice .qr-wrap img { display: block; width: 30mm; height: 27mm; object-fit: contain; margin: 1px auto 0; }
 .print-invoice .qr-placeholder { width: 30mm; height: 27mm; border: 1px dashed #888; margin: 1px auto 0; display: grid; place-items: center; color: #666; font-size: 8px; }
+/* Signatory-er padding ebong width fix kora holo jate left border porjonto line match kore */
 .print-invoice .signatory { border-left: 1px solid #777; display: grid; grid-template-rows: 1fr 7mm; align-items: start; padding: 4px 0 0 0; min-height: 39mm; }
 .print-invoice .signatory b { display: block; width: 100%; margin: 0; padding: 0 4px 3px; border-bottom: 1px solid #777; }
 .print-invoice .signatory span { display: flex; align-items: center; justify-content: flex-end; border-top: 1px solid #777; font-weight: 400; padding-right: 4px; }
