@@ -3,17 +3,27 @@
   margin: 5mm;
 }
 
+
+/* =========================================
+   GLOBAL
+========================================= */
+
 * {
   box-sizing: border-box;
 }
 
+
+/* =========================================
+   BODY
+========================================= */
+
 body.print-invoice {
   width: 200mm;
-  min-height: 287mm;
   margin: 0 auto;
   color: #111;
   font: 10px/1.2 Arial, sans-serif;
 }
+
 
 /* =========================================
    INVOICE TITLE
@@ -31,13 +41,17 @@ body.print-invoice {
 
 /* =========================================
    MAIN INVOICE FRAME
+   IMPORTANT:
+   No forced min-height here.
+   This makes the bottom border end
+   exactly with the footer.
 ========================================= */
 
 .print-invoice .invoice-frame {
-  min-height: 266mm;
   border: 1px solid #555;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 
@@ -60,6 +74,11 @@ body.print-invoice {
   grid-template-columns: 57% 43%;
   border-bottom: 1px solid #777;
 }
+
+
+/* =========================================
+   SELLER
+========================================= */
 
 .print-invoice .seller {
   padding: 4px;
@@ -146,7 +165,7 @@ body.print-invoice {
 
 
 /* =========================================
-   PRODUCT TABLE CELLS
+   PRODUCT CELLS
 ========================================= */
 
 .print-invoice .items th,
@@ -176,7 +195,6 @@ body.print-invoice {
 
 /* =========================================
    ACTUAL PRODUCT ROWS
-   IMPORTANT:
    No artificial height / gap
 ========================================= */
 
@@ -213,8 +231,10 @@ body.print-invoice {
 
 
 /* =========================================
-   FILLER / BLANK SPACE
-   Blank space ONLY AFTER products
+   FILLER / BLANK PRODUCT AREA
+
+   This is the ONLY artificial blank space.
+   It remains BELOW the last product.
 ========================================= */
 
 .print-invoice .items .filler {
@@ -240,7 +260,7 @@ body.print-invoice {
 
 
 /* =========================================
-   SUMMARY SECTION
+   SUMMARY
 ========================================= */
 
 .print-invoice .summary {
@@ -283,6 +303,9 @@ body.print-invoice {
 .print-invoice .footer-grid {
   display: grid;
   grid-template-columns: 50% 18% 32%;
+  width: 100%;
+  height: 39mm;
+  min-height: 39mm;
 }
 
 
@@ -292,6 +315,7 @@ body.print-invoice {
 
 .print-invoice .terms {
   padding: 4px;
+  height: 39mm;
   min-height: 39mm;
 }
 
@@ -318,6 +342,7 @@ body.print-invoice {
   border-left: 1px solid #777;
   padding: 4px;
   text-align: center;
+  height: 39mm;
   min-height: 39mm;
 }
 
@@ -371,6 +396,7 @@ body.print-invoice {
   grid-template-rows: 1fr 7mm;
   align-items: start;
   padding: 4px 0 0 0;
+  height: 39mm;
   min-height: 39mm;
 }
 
@@ -413,8 +439,14 @@ body.print-invoice {
     margin: 0;
   }
 
+  /*
+     IMPORTANT:
+     Do NOT set min-height on invoice-frame here.
+     Otherwise footer-er নিচে আবার extra gap আসবে.
+  */
+
   .print-invoice .invoice-frame {
-    min-height: 266mm;
+    min-height: 0;
   }
 
   .print-invoice .items {
