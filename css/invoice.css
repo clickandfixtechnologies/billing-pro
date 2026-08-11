@@ -3,7 +3,7 @@
 body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #111; font: 10px/1.2 Arial, sans-serif; }
 .print-invoice .invoice-title { margin: 0; height: 8mm; text-align: center; font-size: 15px; line-height: 8mm; font-weight: 700; }
 .print-invoice .invoice-frame { min-height: 266mm; border: 1px solid #555; display: flex; flex-direction: column; justify-content: space-between; }
-.print-invoice table { border-collapse: collapse; width: 100%; }
+.print-invoice table { border-collapse: collapse; width: 100%; height: auto; }
 .print-invoice .top-grid { display: grid; grid-template-columns: 57% 43%; border-bottom: 1px solid #777; }
 .print-invoice .seller { padding: 4px; min-height: 50mm; }
 .print-invoice .seller .company-name { margin: 0 0 2px; font-size: 12px; font-weight: 700; }
@@ -18,14 +18,15 @@ body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #11
 .print-invoice .metadata strong { display: block; font-size: 10px; }
 .print-invoice .delivery-box { min-height: 14mm; padding: 3px; border-top: 1px solid #777; }
 
-.print-invoice .items { table-layout: fixed; flex-grow: 0; }
+/* Table items stretch fix */
+.print-invoice .items { table-layout: auto; height: auto !important; flex-grow: 0 !important; }
 .print-invoice .items th, .print-invoice .items td { border-right: 1px solid #777; border-bottom: 1px solid #777; padding: 4px 3px; vertical-align: top; height: auto !important; }
 .print-invoice .items th:last-child, .print-invoice .items td:last-child { border-right: 0; }
 .print-invoice .items th { text-align: center; font-size: 9px; font-weight: 700; }
 
-.print-invoice .items tbody tr:not(.filler) { height: auto !important; }
-.print-invoice .items tbody tr:not(.filler) td { border-bottom: 1px solid #777; height: auto !important; }
-.print-invoice .items .filler td { height: auto !important; border: 0; }
+.print-invoice .items tbody tr { height: auto !important; }
+.print-invoice .items tbody tr td { height: auto !important; border-bottom: 1px solid #777; }
+.print-invoice .items .filler td { height: 0 !important; padding: 0 !important; border: none !important; }
 
 .print-invoice .items .number, .print-invoice .items .money, .print-invoice .items .qty { text-align: right; }
 .print-invoice .items .description { font-size: 10px; }
@@ -42,14 +43,14 @@ body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #11
 .print-invoice .terms b { display: block; margin-bottom: 3px; }
 .print-invoice .terms ol { margin: 0; padding-left: 16px; }
 .print-invoice .terms li { min-height: 3.4mm; }
-.print-invoice .scan-pay { border-left: 1px solid #777; padding: 4px; text-align: center; min-height: 39mm; }
+.print-invoice .scan-pay { border-left: 1px solid #777; padding-4px; text-align: center; min-height: 39mm; }
 .print-invoice .scan-pay b { display: block; margin-bottom: 2px; }
 .print-invoice .scan-pay p { margin: 1px 0; white-space: pre-line; }
 .print-invoice .qr-wrap { text-align: center; padding: 2px; }
 .print-invoice .qr-wrap img { display: block; width: 30mm; height: 27mm; object-fit: contain; margin: 1px auto 0; }
 .print-invoice .qr-placeholder { width: 30mm; height: 27mm; border: 1px dashed #888; margin: 1px auto 0; display: grid; place-items: center; color: #666; font-size: 8px; }
 .print-invoice .signatory { border-left: 1px solid #777; display: grid; grid-template-rows: 1fr 7mm; align-items: start; padding: 4px 0 0 0; min-height: 39mm; }
-.print-invoice .signatory b { display: block; width: 100%; margin: 0; padding: 0 4px 3px; border-bottom: 1px solid #777; }
+.print-invoice .signatory b { display:, block; width: 100%; margin: 0; padding: 0 4px 3px; border-bottom: 1px solid #777; }
 .print-invoice .signatory span { display: flex; align-items: center; justify-content: flex-end; border-top: 1px solid #777; font-weight: 400; padding-right: 4px; }
 .print-invoice .computer-note { margin: 2px 0 0; text-align: center; font-size: 8px; }
 @media print { body.print-invoice { margin: 0; } }
