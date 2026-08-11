@@ -18,22 +18,22 @@ body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #11
 .print-invoice .metadata strong { display: block; font-size: 10px; }
 .print-invoice .delivery-box { min-height: 14mm; padding: 3px; border-top: 1px solid #777; }
 
-/* Items Table Layout & Perfect Gap Fix */
+/* Items Table Layout - Fixed to prevent row stretching */
 .print-invoice .items { table-layout: fixed; flex-grow: 1; height: 100%; }
 .print-invoice .items th, .print-invoice .items td { border-right: 1px solid #777; border-bottom: 1px solid #777; padding: 3px 2px; vertical-align: top; }
 .print-invoice .items th:last-child, .print-invoice .items td:last-child { border-right: 0; }
 .print-invoice .items th { text-align: center; font-size: 9px; font-weight: 700; }
 
-/* প্রডাক্ট রো গুলোকে স্ট্রেচ হওয়া থেকে আটকানো এবং মাঝের লাইন রিমুভ করা */
-.print-invoice .items tbody tr:not(.filler) { height: 1px !important; }
-.print-invoice .items tbody tr:not(.filler) td { border-bottom: 0 !important; height: 1px !important; }
+/* প্রডাক্ট রো এর সেলগুলোকে স্ট্রেচ বা বড় হওয়া থেকে আটকানোর জন্য strict height এবং zero border */
+.print-invoice .items tbody tr:not(.filler) { height: 1px; }
+.print-invoice .items tbody tr:not(.filler) td { border-bottom: 0 !important; height: 1px !important; padding-bottom: 4px; }
 
 .print-invoice .items .number, .print-invoice .items .money, .print-invoice .items .qty { text-align: right; }
 .print-invoice .items .description { font-size: 10px; }
 .print-invoice .items .item-name { font-weight: 700; }
 
-/* সমস্ত অতিরিক্ত ফাঁকা জায়গা শুধু ফাইলার রো নিয়ে নেবে, প্রডাক্টগুলো একসাথে থাকবে */
-.print-invoice .items .filler td { height: 100% !important; border-bottom: 1px solid #777; }
+/* ফাইলার রো পুরো টেবিলের বাকি জায়গা নিয়ে নেবে, ফলে প্রডাক্টগুলো উপরে একসাথে থাকবে */
+.print-invoice .items .filler td { height: auto !important; border-bottom: 1px solid #777; }
 .print-invoice .items tfoot td { font-weight: 700; vertical-align: middle; border-bottom: 1px solid #777; }
 
 .print-invoice .summary { display: grid; grid-template-columns: 58% 42%; border-bottom: 1px solid #777; }
