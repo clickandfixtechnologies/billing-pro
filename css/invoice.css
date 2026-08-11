@@ -27,7 +27,10 @@ body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #11
 .print-invoice .items .number, .print-invoice .items .money, .print-invoice .items .qty { text-align: right; }
 .print-invoice .items .description { font-size: 10px; }
 .print-invoice .items .item-name { font-weight: 700; }
-.print-invoice .items .filler td { height: 90mm; border-bottom: 1px solid #777; }
+
+/* নিচের ফাঁকা জায়গায় (filler) কলামগুলোর উল্লম্ব দাগ বা লাইনগুলো রিমুভ করার জন্য */
+.print-invoice .items .filler td { height: 90mm; border-right: none !important; border-bottom: 1px solid #777; }
+
 .print-invoice .items tfoot td { font-weight: 700; vertical-align: middle; }
 
 .print-invoice .summary { display: grid; grid-template-columns: 58% 42%; border-bottom: 1px solid #777; }
