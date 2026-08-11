@@ -17,25 +17,16 @@ body.print-invoice { width: 200mm; min-height: 287mm; margin: 0 auto; color: #11
 .print-invoice .metadata td:last-child { border-right: 0; }
 .print-invoice .metadata strong { display: block; font-size: 10px; }
 .print-invoice .delivery-box { min-height: 14mm; padding: 3px; border-top: 1px solid #777; }
-
-/* Items Table Layout */
-.print-invoice .items { table-layout: fixed; }
+.print-invoice .items { table-layout: fixed; flex-grow: 1; }
 .print-invoice .items th, .print-invoice .items td { border-right: 1px solid #777; border-bottom: 1px solid #777; padding: 3px 2px; vertical-align: top; }
 .print-invoice .items th:last-child, .print-invoice .items td:last-child { border-right: 0; }
 .print-invoice .items th { text-align: center; font-size: 9px; font-weight: 700; }
-
-/* প্রডাক্ট রো গুলো কম্প্যাক্ট ও পাশাপাশি থাকবে, মাঝের কোনো লাইন থাকবে না */
-.print-invoice .items tbody tr:not(.filler) { height: auto !important; }
-.print-invoice .items tbody tr:not(.filler) td { border-bottom: 0 !important; height: auto !important; padding-bottom: 4px; }
-
+.print-invoice .items tbody tr:not(.filler) td { border-bottom: 0; }
 .print-invoice .items .number, .print-invoice .items .money, .print-invoice .items .qty { text-align: right; }
 .print-invoice .items .description { font-size: 10px; }
 .print-invoice .items .item-name { font-weight: 700; }
-
-/* ফাইলার রো-এর উচ্চতা একটু কমিয়ে 95mm করা হলো যাতে আর সামান্য গ্যাপ কমে যায় */
-.print-invoice .items .filler td { height: 95mm !important; border-bottom: 1px solid #777; }
-.print-invoice .items tfoot td { font-weight: 700; vertical-align: middle; border-bottom: 1px solid #777; }
-
+.print-invoice .items .filler td { height: 95mm; border-bottom: 1px solid #777; }
+.print-invoice .items tfoot td { font-weight: 700; vertical-align: middle; }
 .print-invoice .summary { display: grid; grid-template-columns: 58% 42%; border-bottom: 1px solid #777; }
 .print-invoice .words { padding: 4px; min-height: 25mm; }
 .print-invoice .words b { display: block; margin-bottom: 2px; }
