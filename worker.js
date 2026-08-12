@@ -41,11 +41,13 @@ export default {
       const customerName = typeof input?.customerName === "string" ? input.customerName.trim() : "";
       const subject = typeof input?.subject === "string" ? input.subject.trim() : "";
       const html = typeof input?.html === "string" ? input.html.trim() : "";
+      const attachment = input?.attachment && typeof input.attachment === "object" ? input.attachment : null;
 
       if (!to) return json({ success: false, message: "Email is required." }, 400);
       if (!validEmail(to)) return json({ success: false, message: "A valid recipient email is required." }, 400);
       if (!subject) return json({ success: false, message: "Subject is required." }, 400);
       if (!html) return json({ success: false, message: "HTML content is required." }, 400);
+      if (attachment && (!/^[A-Za-z0-9+/=]+$/.test(String(attachment.content || "")) || !String(attachment.filename || "").trim())) return json({ success: false, message: "Invoice PDF attachment is invalid." }, 400);
       if (!env.BREVO_API_KEY || !env.BREVO_SENDER_EMAIL || !env.BREVO_SENDER_NAME) {
         return json({ success: false, message: "Email service is not configured." }, 500);
       }
@@ -65,7 +67,8 @@ export default {
             sender: { name: env.BREVO_SENDER_NAME, email: env.BREVO_SENDER_EMAIL },
             to: [{ email: to, ...(customerName ? { name: customerName } : {}) }],
             subject,
-            htmlContent: html
+            htmlContent: html,
+            ...(attachment ? { attachment: [{ content: String(attachment.content), name: String(attachment.filename).trim() }] } : {})
           }),
           signal: controller.signal
         });
