@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shiny-night-8eadclickfix-reminder",
+  "main": "worker.js",
+  "compatibility_date": "2026-07-30",
+  "preview_urls": true,
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true
+    }
+  },
+  "vars": {
+    "BREVO_SENDER_EMAIL": "clicknfixtechnologies@gmail.com",
+    "BREVO_SENDER_NAME": "Click & Fix Technologies"
+  }
+}
