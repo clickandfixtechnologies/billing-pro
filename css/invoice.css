@@ -34,7 +34,9 @@ body.print-invoice {
   height: 8mm;
   text-align: center;
   font-size: 15px;
-  line-height: 8mm;
+  /* Keep the title in its existing 8mm band, with a print-safe gap above the frame. */
+  line-height: 5mm;
+  padding-bottom: 3mm;
   font-weight: 700;
 }
 
