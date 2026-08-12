@@ -1,7 +1,7 @@
 "use strict";
 window.CF = window.CF || {};
 CF.db = (() => {
-  const DB_NAME = "ClickFixBillingDB", VERSION = 6;
+  const DB_NAME = "ClickFixBillingDB", VERSION = 7;
   const stores = [
     ["customers", "customerId", ["name", "mobile", "email"]],
     ["products", "productId", ["name", "productCode", "category"]],
@@ -14,7 +14,8 @@ CF.db = (() => {
     ["suppliers", "supplierId", ["name", "mobile", "gstNumber"]],
     ["purchases", "purchaseId", ["purchaseNo", "supplierId", "purchaseDate", "paymentStatus"]],
     ["supplierPayments", "paymentId", ["supplierId", "purchaseId", "paymentDate"]],
-    ["emailTemplates", "templateId", ["name", "type"]], ["reminders", "reminderId", ["customerId", "createdAt", "status"]]
+    ["emailTemplates", "templateId", ["name", "type", "category", "isActive"]], ["reminders", "reminderId", ["customerId", "createdAt", "status"]],
+    ["emailCampaigns", "campaignId", ["templateId", "status", "createdAt"]], ["emailCampaignRecipients", "campaignRecipientId", ["campaignId", "customerId", "status", "createdAt"]]
   ];
   let connection;
   const storeNames = () => stores.map(([name]) => name).filter(name => connection.objectStoreNames.contains(name));
