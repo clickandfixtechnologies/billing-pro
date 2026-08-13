@@ -507,8 +507,8 @@ body.print-invoice {
 /* Template 1 browser Print/PDF: restore the legacy compact square QR footprint. */
 @media print {
   .print-invoice .invoice-full .qr-wrap img {
-    width: 27mm;
-    height: 27mm;
+    width: 29mm;
+    height: 29mm;
     max-width: 100%;
     object-fit: contain;
     margin-left: auto;
