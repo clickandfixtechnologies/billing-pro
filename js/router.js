@@ -1,7 +1,7 @@
 "use strict";
 window.CF = window.CF || {};
 CF.router = (() => {
-  const labels = { dashboard:"Dashboard", customers:"Customers", products:"Products", inventory:"Inventory", purchases:"Purchases & Suppliers", invoices:"Invoices", payments:"Payments", reports:"Reports", dues:"Due List & Reminders", emailTemplates:"Email Templates", campaigns:"Bulk Email Campaigns", backup:"Backup & Restore", settings:"Settings" };
+  const labels = { dashboard:"Dashboard", customers:"Customers", products:"Products", inventory:"Inventory", purchases:"Purchases & Suppliers", invoices:"Invoices", payments:"Payments", warranties:"Extension Warranty", reports:"Reports", dues:"Due List & Reminders", emailTemplates:"Email Templates", campaigns:"Bulk Email Campaigns", backup:"Backup & Restore", settings:"Settings" };
   const placeholder = route => `<article class="card placeholder"><h2>${labels[route]}</h2><p>This module is scheduled for v1.5.</p></article>`;
   const dashboard = async () => {
     const [customers, products, inventory, invoices, payments] = await Promise.all(["customers","products","inventory","invoices","payments"].map(CF.db.getAll));
