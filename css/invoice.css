@@ -240,11 +240,11 @@ body.print-invoice {
 ========================================= */
 
 .print-invoice .items .filler {
-  height: 95mm;
+  height: var(--filler-height, 95mm);
 }
 
 .print-invoice .items .filler td {
-  height: 95mm;
+  height: var(--filler-height, 95mm);
   padding: 0;
   border-bottom: 1px solid #777;
   vertical-align: top;
@@ -453,6 +453,13 @@ body.print-invoice {
 
   .print-invoice .items {
     flex-grow: 0;
+  }
+
+  /* Mobile print engines otherwise omit Template 4's themed header background. */
+  .print-invoice .invoice-professional,
+  .print-invoice .invoice-professional header {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
 }
