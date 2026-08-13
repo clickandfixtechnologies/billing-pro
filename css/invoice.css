@@ -473,35 +473,35 @@ body.print-invoice {
   width: 200mm;
 }
 
-/* Template 1: keep every legacy footer column inside the A4 invoice frame. */
+/* Template 1: its wrapped terms and UPI/QR stack require a shared 45mm footer. */
 .print-invoice .invoice-full .footer-grid,
 .print-invoice .invoice-full .terms,
 .print-invoice .invoice-full .scan-pay,
 .print-invoice .invoice-full .signatory {
-  height: 37mm;
-  min-height: 37mm;
+  height: 45mm;
+  min-height: 45mm;
 }
 
 .print-invoice .invoice-full .terms li {
-  min-height: 3.1mm;
+  min-height: 3.4mm;
 }
 
 .print-invoice .invoice-full .scan-pay {
-  padding: 3px;
+  padding: 4px;
 }
 
 .print-invoice .invoice-full .scan-pay p {
-  margin: 0;
+  margin: 1px 0;
 }
 
 .print-invoice .invoice-full .qr-wrap {
-  padding: 1px;
+  padding: 2px;
 }
 
 .print-invoice .invoice-full .qr-wrap img,
 .print-invoice .invoice-full .qr-placeholder {
-  width: 28mm;
-  height: 25mm;
+  width: 23mm;
+  height: 21mm;
 }
 
 /* Shared selected-template invoice document. */
