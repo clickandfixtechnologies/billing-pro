@@ -486,6 +486,12 @@ body.print-invoice {
   min-height: 3.4mm;
 }
 
+/* Template 1 keeps the five terms, without ordered-list number markers. */
+.print-invoice .invoice-full .terms ol {
+  list-style: none;
+  padding-left: 0;
+}
+
 .print-invoice .invoice-full .scan-pay {
   padding: 4px;
 }
