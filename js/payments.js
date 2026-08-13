@@ -104,6 +104,7 @@ CF.payments=(()=>{
   invoiceSelect?.addEventListener("change",async()=>{const invoice=await CF.db.get("invoices",invoiceSelect.value),customer=invoice&&await CF.customerAccounts.getCurrent(invoice.customerId);let node=document.getElementById("paymentCurrentOutstanding");if(!node&&invoiceSelect){node=document.createElement("p");node.id="paymentCurrentOutstanding";node.className="notice wide";invoiceSelect.closest("label").insertAdjacentElement("afterend",node)}if(node)node.textContent=customer?`Current Outstanding: ${CF.formatCurrency(customer.outstanding)}`:"Select an invoice to load the current customer outstanding."});
  document.getElementById("paymentForm")?.addEventListener("submit",save);
   document.querySelectorAll("[data-edit-payment]").forEach(editButton=>{const button=document.createElement("button");button.type="button";button.className="primary";button.dataset.sendConfirmation=editButton.dataset.editPayment;button.textContent="📧 Send Confirmation";editButton.before(button);});
+  document.querySelectorAll("[data-send-confirmation]").forEach(button=>{button.textContent="✉";button.title="Send Confirmation";button.setAttribute("aria-label","Send Confirmation")});
   document.querySelectorAll("[data-slip]").forEach(b=>b.addEventListener("click",()=>slip(b.dataset.slip)));
   document.querySelectorAll("[data-send-confirmation]").forEach(b=>b.addEventListener("click",()=>confirmSend(b.dataset.sendConfirmation)));
   document.querySelectorAll("[data-edit-payment]").forEach(b=>b.addEventListener("click",()=>edit(b.dataset.editPayment)));
