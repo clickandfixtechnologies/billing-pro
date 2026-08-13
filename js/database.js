@@ -1,13 +1,14 @@
 "use strict";
 window.CF = window.CF || {};
 CF.db = (() => {
-  const DB_NAME = "ClickFixBillingDB", VERSION = 7;
+  const DB_NAME = "ClickFixBillingDB", VERSION = 8;
   const stores = [
     ["customers", "customerId", ["name", "mobile", "email"]],
     ["products", "productId", ["name", "productCode", "category"]],
     ["inventory", "inventoryId", ["productId", "transactionDate", "type"]],
     ["invoices", "invoiceId", ["invoiceNo", "customerId", "invoiceDate", "paymentStatus"]],
     ["payments", "paymentId", ["invoiceId", "customerId", "paymentDate"]],
+    ["customerNotes", "noteId", ["customerId", "invoiceId", "noteType", "noteDate"]],
     ["settings", "key", []], ["syncQueue", "queueId", ["status", "createdAt"]],
     ["auditLog", "logId", ["createdAt", "entityType", "entityId"]], ["counters", "name", []],
     ["brands", "brandId", ["name"]], ["categories", "categoryId", ["name"]],
