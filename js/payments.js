@@ -100,6 +100,8 @@ CF.payments=(()=>{
  };
 
  const bind=()=>{
+  const invoiceSelect=document.querySelector("#paymentForm [name=invoiceId]");
+  invoiceSelect?.addEventListener("change",async()=>{const invoice=await CF.db.get("invoices",invoiceSelect.value),customer=invoice&&await CF.customerAccounts.getCurrent(invoice.customerId);let node=document.getElementById("paymentCurrentOutstanding");if(!node&&invoiceSelect){node=document.createElement("p");node.id="paymentCurrentOutstanding";node.className="notice wide";invoiceSelect.closest("label").insertAdjacentElement("afterend",node)}if(node)node.textContent=customer?`Current Outstanding: ${CF.formatCurrency(customer.outstanding)}`:"Select an invoice to load the current customer outstanding."});
  document.getElementById("paymentForm")?.addEventListener("submit",save);
   document.querySelectorAll("[data-edit-payment]").forEach(editButton=>{const button=document.createElement("button");button.type="button";button.className="primary";button.dataset.sendConfirmation=editButton.dataset.editPayment;button.textContent="📧 Send Confirmation";editButton.before(button);});
   document.querySelectorAll("[data-slip]").forEach(b=>b.addEventListener("click",()=>slip(b.dataset.slip)));
@@ -141,7 +143,7 @@ CF.payments=(()=>{
   }
  };
 
- const save=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),invoice=await CF.db.get("invoices",d.invoiceId),amount=Number(d.amount);if(!invoice||!(amount>0))return CF.toast("Select an invoice and enter a valid amount","error");const c=await CF.db.get("customers",invoice.customerId);try{await applyAmount(invoice,c,amount);const p={paymentId:CF.id(),...d,amount,customerId:invoice.customerId,createdAt:new Date().toISOString()};await CF.db.put("payments",p);CF.toast("Payment recorded");await slip(p.paymentId);CF.router.render()}catch(error){CF.toast(error.message||"Could not record payment","error")}};
+ const save=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),invoice=await CF.db.get("invoices",d.invoiceId),amount=Number(d.amount);if(!invoice||!(amount>0))return CF.toast("Select an invoice and enter a valid amount","error");const c=await CF.customerAccounts.getCurrent(invoice.customerId);if(amount>Number(c?.outstanding||0)+.0001)return CF.toast("Payment amount is more than the current customer outstanding","error");try{await applyAmount(invoice,c,amount);const p={paymentId:CF.id(),...d,amount,customerId:invoice.customerId,createdAt:new Date().toISOString()};await CF.db.put("payments",p);CF.toast("Payment recorded");await slip(p.paymentId);CF.router.render()}catch(error){CF.toast(error.message||"Could not record payment","error")}};
 
  return {render,bind};
 })();
