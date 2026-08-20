@@ -1,0 +1,5 @@
+[functions.acknowledgement]
+# Firebase ID tokens are verified inside the function. Supabase JWT verification
+# must stay disabled for this function because customers and admins have no
+# Supabase Auth sessions.
+verify_jwt = false
