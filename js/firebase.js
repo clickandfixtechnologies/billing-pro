@@ -4,7 +4,7 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 // Firebase Authentication
-import { getAuth }
+import { getAuth, onAuthStateChanged }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
@@ -41,6 +41,20 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+// Resolves once Firebase has restored (or determined the absence of) the
+// persisted browser session. Protected modules await this instead of reading
+// currentUser during Firebase's initial restoration window.
+let stopInitialAuthListener;
+const authReadyPromise = new Promise(resolve => {
+    stopInitialAuthListener = onAuthStateChanged(auth, user => {
+        resolve(user);
+        stopInitialAuthListener?.();
+    }, () => {
+        resolve(null);
+        stopInitialAuthListener?.();
+    });
+});
+
 
 // Initialize Firestore
 
@@ -52,6 +66,8 @@ const db = getFirestore(app);
 export {
 
     auth,
+
+    authReadyPromise,
 
     db
 

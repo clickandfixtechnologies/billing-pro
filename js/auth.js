@@ -2,9 +2,8 @@
         FIREBASE AUTH PROTECTION
 =========================================*/
 
-import { auth } from "./firebase.js";
+import { auth, authReadyPromise } from "./firebase.js?v=2";
 import {
-    onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -18,7 +17,7 @@ import {
 function protectPage(){
 
 
-    onAuthStateChanged(auth, (user) => {
+    authReadyPromise.then((user) => {
 
     if (!user) {
 
