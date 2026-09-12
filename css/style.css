@@ -1,5 +1,6 @@
 :root { --navy:#17324d; --blue:#246b9f; --bg:#f3f6f9; --paper:#fff; --text:#182532; --muted:#687686; --line:#dce3ea; --success:#198754; --warn:#a86200; --danger:#b42318; }
 * { box-sizing:border-box; }
+html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 body { margin:0; color:var(--text); background:var(--bg); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
 button,a { font:inherit; }
 .app-shell { min-height:100vh; display:flex; }
@@ -40,6 +41,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none; margi
 input[type="number"] { -moz-appearance:textfield; appearance:textfield; }
 @media (max-width:720px) {
   input, select, textarea { font-size:16px !important; }
-  html, body { touch-action:manipulation; }
+  html { touch-action:manipulation; }
+  body { touch-action:pan-x pan-y; overscroll-behavior-x:none; }
 }
 
