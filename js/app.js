@@ -1,6 +1,7 @@
 "use strict";
 window.CF = window.CF || {};
 document.addEventListener("DOMContentLoaded", async () => {
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(error => console.warn("PWA service worker registration failed", error));
   document.getElementById("todayDate").textContent = new Intl.DateTimeFormat("en-IN", { dateStyle:"full" }).format(new Date());
   const sidebar=document.querySelector(".sidebar"),backdrop=document.getElementById("sidebarBackdrop"),menuButton=document.getElementById("menuButton"),setSidebarOpen=open=>{const mobile=window.matchMedia("(max-width:720px)").matches,isOpen=mobile&&open;sidebar.classList.toggle("open",isOpen);backdrop.classList.toggle("open",isOpen);backdrop.setAttribute("aria-hidden",String(!isOpen));menuButton.setAttribute("aria-expanded",String(isOpen));};
   CF.sidebar={open:()=>setSidebarOpen(true),close:()=>setSidebarOpen(false),toggle:()=>setSidebarOpen(!sidebar.classList.contains("open"))};

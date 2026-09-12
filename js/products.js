@@ -11,16 +11,16 @@ CF.products = (() => {
  <label>Brand<select name="brand">${options(masters.brands,p?.brand,"Select brand")}</select></label>
  <label>Category<select name="category">${options(masters.categories,p?.category,"Select category")}</select></label>
  <label>HSN/SAC<input name="hsn" value="${CF.escape(p?.hsn)}"></label>
- <label>Purchase Price<input class="no-spinner" type="number" name="purchasePrice" value="${p?.purchasePrice??0}"></label>
- <label>Selling Price*<input required class="no-spinner" type="number" name="sellingPrice" value="${p?.sellingPrice??0}"></label>
- <label>GST %<input class="no-spinner" type="number" name="gst" value="${p?.gst??0}"></label>
+ <label>Purchase Price<input class="no-spinner" type="number" step=".01" min="0" name="purchasePrice" value="${p?.purchasePrice??0}"></label>
+ <label>Selling Price*<input required class="no-spinner" type="number" step=".01" min="0" name="sellingPrice" value="${p?.sellingPrice??0}"></label>
+ <label>GST %<input class="no-spinner" type="number" step=".01" min="0" name="gst" value="${p?.gst??0}"></label>
  <label>Opening Stock<input min="0" step="1" type="number" name="currentStock" value="${p?.currentStock??0}"></label>
  <label>Minimum Stock<input min="0" step="1" type="number" name="minimumStock" value="${p?.minimumStock??0}"></label>
  <label class="wide">Description<textarea name="description">${CF.escape(p?.description)}</textarea></label>
  <details class="wide"><summary>Optional / future fields</summary><label>Product Code<input name="productCode" value="${CF.escape(p?.productCode)}" placeholder="Optional product code"></label></details>
  <div class="form-actions wide"><button class="primary">Save Product</button>${p?`<button type="button" class="danger" data-delete-product="${CF.escape(p.productId)}">Delete Product</button>`:""}<button type="button" class="secondary" data-cancel>Cancel</button></div></form>`;
 
- const rows=items=>items.length?items.map(p=>`<tr><td>${CF.escape(p.name)}</td><td>${CF.escape(p.brand||"-")}</td><td>${CF.escape(p.category||"-")}</td><td>${CF.formatCurrency(p.sellingPrice)}</td><td class="${Number(p.currentStock)<=Number(p.minimumStock)?"low-stock":""}">${p.currentStock}</td><td><button data-edit="${p.productId}">Edit</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty-cell">No products yet.</td></tr>`;
+ const rows=items=>items.length?items.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""),undefined,{sensitivity:"base",numeric:true})).map(p=>`<tr><td>${CF.escape(p.name)}</td><td>${CF.escape(p.brand||"-")}</td><td>${CF.escape(p.category||"-")}</td><td>${CF.formatCurrency(p.sellingPrice)}</td><td class="${Number(p.currentStock)<=Number(p.minimumStock)?"low-stock":""}">${p.currentStock}</td><td><button data-edit="${p.productId}">Edit</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty-cell">No products yet.</td></tr>`;
  
  const masterCard=(title,type,items)=>`<article class="card master-card"><h3>${title}</h3><form data-master="${type}" class="inline-mini"><input required placeholder="Add ${title.toLowerCase()}" name="name"><button class="secondary">Add</button></form><details class="master-list"><summary>${items.length} saved ${title.toLowerCase()} (manage)</summary><div class="tag-list">${items.map(x=>`<span>${CF.escape(x.name)} <button title="Remove" data-remove-master="${type}:${x[type+"Id"]}">×</button></span>`).join("")||"<small>No saved entries yet.</small>"}</div></details></article>`;
  
